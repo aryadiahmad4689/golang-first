@@ -17,5 +17,16 @@
     </form>
 </body>
 
+{{range $index, $elem := .article}}
+<h1>{{$elem.Title}}</h1>
+<h3>{{$elem.Content}}</h3>
+<a href="/edit/{{$elem.ID}}">Edit</a> ||
+<form action="" method="post">
+    <a href="/delete/{{$elem.ID}}">Delete</a>
+</form>
+{{end}}
+
 </html>
 {{end}}
+
+<!-- c1wVHiY2wOXM5xqbWbEl9s0U2dUNUt5b -->

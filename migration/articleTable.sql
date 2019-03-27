@@ -1,7 +1,7 @@
 -- create database viewters
 -- use viewters
 
-create table article
+create table articles
 (
     id int,
     title varchar(50),

@@ -7,6 +7,7 @@ import (
 	"github.com/labstack/echo/middleware"
 )
 
+// exported Init
 func Init() *echo.Echo {
 	e := echo.New()
 	// Middleware
@@ -15,10 +16,14 @@ func Init() *echo.Echo {
 	//CORS
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
-		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE},
+		AllowMethods: []string{echo.GET, echo.PUT, echo.POST, echo.DELETE, echo.OPTIONS},
 	}))
 	e.GET("/index", controllers.Index)
-	e.GET("/users", controllers.GetUser)
+	e.GET("/findArticle", controllers.GetUser)
 	e.POST("/create", controllers.CreateArticle)
+	e.PUT("/update/:id", controllers.Update)
+	e.DELETE("/delete/:id", controllers.Delete)
+	e.GET("/edit/:id", controllers.Edit)
+
 	return e
 }

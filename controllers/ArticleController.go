@@ -10,16 +10,12 @@ import (
 
 // Index
 func Index(c echo.Context) error {
-	// var data map[string]interface{}
-	return c.Render(http.StatusOK, "index", map[string]interface{}{})
-}
-
-//get user
-func GetUser(c echo.Context) error {
 	db := db.DbManager()
-	user := []models.Article{}
-	db.Find(&user)
-	return c.JSON(http.StatusOK, user)
+	article := []models.Article{}
+	db.Table("articles").Select("id,title,content").Scan(&article)
+	return c.Render(http.StatusOK, "index", map[string]interface{}{
+		"article": article,
+	})
 }
 
 // store
@@ -30,14 +26,46 @@ func CreateArticle(c echo.Context) error {
 	article.Content = c.FormValue("content")
 
 	db.Create(&article)
-	return c.Render(http.StatusOK, "index", map[string]interface{}{
-		"article": article,
-	})
+	return c.Redirect(http.StatusMovedPermanently, "/index")
 
 }
 
-// update
+// Edit
+func Edit(c echo.Context) error {
+	db := db.DbManager()
+	article := []models.Article{}
+	id := c.Param("id")
+	db.Where("id = ?", id).Find(&article)
+	return c.Render(http.StatusOK, "edit", map[string]interface{}{
+		"articles": article,
+		"id":       id,
+	})
+}
 
-// delete
+// Update
+func Update(c echo.Context) error {
+	db := db.DbManager()
+	article := []models.Article{}
+	id := c.Param("id")
+	title := c.FormValue("title")
+	content := c.FormValue("content")
+	db.Model(&article).Where("id= ?", id).Update(map[string]interface{}{"title": title, "content": content})
+	return c.Redirect(http.StatusMovedPermanently, "/index")
+}
 
-// search
+// Delete
+func Delete(c echo.Context) error {
+	db := db.DbManager()
+	article := []models.Article{}
+	id := c.Param("id")
+	db.Unscoped().Delete(&article, "id = ?", id)
+	return c.Redirect(http.StatusMovedPermanently, "/index")
+}
+
+//searching article
+func GetUser(c echo.Context) error {
+	db := db.DbManager()
+	article := []models.Article{}
+	db.Where("id = ?", "1").Find(&article)
+	return c.JSON(http.StatusOK, article)
+}
