@@ -12,6 +12,7 @@ require (
 	github.com/labstack/gommon v0.2.8 // indirect
 	github.com/mattn/go-colorable v0.1.1 // indirect
 	github.com/mattn/go-isatty v0.0.7 // indirect
+	github.com/rs/cors v1.6.0
 	github.com/spf13/viper v1.3.2 // indirect
 	github.com/tkanos/gonfig v0.0.0-20181112185242-896f3d81fadf
 	github.com/valyala/fasttemplate v1.0.0 // indirect
