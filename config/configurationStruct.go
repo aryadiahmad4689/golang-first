@@ -1,6 +1,6 @@
 package config
 
-// connect
+// type Configurtion Name
 type Configuration struct {
 	DB_USERNAME string
 	DB_PASSWORD string

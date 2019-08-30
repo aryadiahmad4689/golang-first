@@ -3,8 +3,7 @@ package config
 import (
 	"github.com/tkanos/gonfig"
 )
-
-// func GetConfig
+// GetConfig func
 func GetConfig() Configuration {
 	configuration := Configuration{}
 	gonfig.GetConf("config/env.json", &configuration)
